@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+}
+
+/* https://stackoverflow.com/questions/31217268/center-div-on-the-middle-of-screen */
+.center-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.status {
+    margin-bottom: 3rem;
+    text-align: center;
+    background-color: gray;
+    border-radius: .5rem;
+    padding: 1rem;
+    color: white;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    background-color: black;
+    grid-gap: 1px;
+    width: 300px;
+    height: 300px;
+}
+
+.cell {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+}
+
+.cell:hover {
+    cursor: pointer;
+}
+
+.cell-x {
+    color: #5bd3ff;
+}
+
+.cell-o {
+    color: #FF7F5B;
+}
