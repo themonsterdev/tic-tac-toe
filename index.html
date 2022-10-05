@@ -9,21 +9,31 @@
   <body>
     <div class="center-screen">
       <div>
-        <div class="status">
-          Status : <span id="status-text">Initialisation...</span>
+        <div class="status" id="status">
+          Status : <span>Initialisation...</span>
         </div>
+      </div>
 
-        <div class="board">
-          <div class="cell cell-x">X</div>
-          <div class="cell cell-o">O</div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
+      <form id="options">
+        <label class="hidden" for="versus">Contre</label>
+        <select name="versus" id="versus"></select>
+
+        <label class="hidden" for="maxDepth">Profondeur Max</label>
+        <select name="maxDepth" id="maxDepth"></select>
+
+        <button type="submit">Lancer la partie</button>
+      </form>
+
+      <div class="board" id="board">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>

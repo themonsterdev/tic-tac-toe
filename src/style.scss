@@ -2,6 +2,21 @@ body {
     margin: 0;
 }
 
+form {
+
+    > select {
+        padding: 1rem;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    > button {
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+}
+
 .hidden {
     display: none;
 }
@@ -9,9 +24,14 @@ body {
 /* https://stackoverflow.com/questions/31217268/center-div-on-the-middle-of-screen */
 .center-screen {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+
+    > * {
+        width: 300px;
+    }
 }
 
 .status {
@@ -31,60 +51,49 @@ body {
     grid-gap: 1px;
     width: 300px;
     height: 300px;
+
+    > .cell {
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+
+        &.cell-x {
+            color: #5bd3ff;
+
+            &::before {
+                content: 'X';
+            }
+        }
+
+        &.cell-o {
+            color: #FF7F5B;
+
+            &::before {
+                content: 'O';
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 
-.cell {
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-}
-
-.cell:hover {
-    cursor: pointer;
-}
-
-.cell-x {
-    color: #5bd3ff;
-}
-
-.cell-x::before {
-    content: 'X';
-}
-
-.cell-o {
-    color: #FF7F5B;
-}
-
-.cell-o::before {
-    content: 'O';
-}
 
 .playing {
-    background-color: cornflowerblue;
+    background-color: lightseagreen;
 }
 
 .victory-x {
-    background-color: darkseagreen;
+    background-color: #5bd3ff;
 }
 
 .victory-o {
-    background-color: indianred;
+    background-color: #FF7F5B;
 }
 
 .draw {
     background-color: lightslategray;
-}
-
-select {
-    padding: 1rem;
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-.btn {
-    width: 100%;
-    padding: 1rem;
-    margin-bottom: 2rem;
 }
