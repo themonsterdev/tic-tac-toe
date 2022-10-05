@@ -17,8 +17,8 @@ Vitest nous permettra d’effectuer des tests unitaires sur l’ensemble des scr
 ## Installation
 
 ```bash
-$ git clone https://github.com/themonsterdev/tree-algorithm
-$ cd tree-algorithm
+$ git clone https://github.com/themonsterdev/tic-tac-toe
+$ cd tic-tac-toe
 $ npm run install
 ```
 
