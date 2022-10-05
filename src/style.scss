@@ -2,6 +2,10 @@ body {
     margin: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 /* https://stackoverflow.com/questions/31217268/center-div-on-the-middle-of-screen */
 .center-screen {
     display: flex;
@@ -11,7 +15,7 @@ body {
 }
 
 .status {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     text-align: center;
     background-color: gray;
     border-radius: .5rem;
@@ -45,6 +49,42 @@ body {
     color: #5bd3ff;
 }
 
+.cell-x::before {
+    content: 'X';
+}
+
 .cell-o {
     color: #FF7F5B;
+}
+
+.cell-o::before {
+    content: 'O';
+}
+
+.playing {
+    background-color: cornflowerblue;
+}
+
+.victory-x {
+    background-color: darkseagreen;
+}
+
+.victory-o {
+    background-color: indianred;
+}
+
+.draw {
+    background-color: lightslategray;
+}
+
+select {
+    padding: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 2rem;
 }
