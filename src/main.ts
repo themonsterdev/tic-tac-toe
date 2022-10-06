@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Game state
     let grid: tGrid
     let step: number
+    let end: boolean = true
 
     const setMove = (position: number, symbol: ePlayerSymbol, className: string) => {
         grid[position] = symbol
@@ -32,11 +33,13 @@ document.addEventListener('DOMContentLoaded', function () {
         status.classList.add(className)
         const xIsNext = (step % 2) === 0
         statusText.innerHTML = eGameState.VICTORY + ' : ' + (xIsNext ? ePlayerSymbol.X : ePlayerSymbol.O)
+        end = true
     }
 
     const setDraw = () => {
         status.className = 'status'
         statusText.innerHTML = eGameState.DRAW
+        end = true
     }
 
     const setNextTurnOrDraw = () => {
@@ -62,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const turnIA = () => {
-        const best = alphaBeta(grid, step, -Infinity, Infinity, false)
+        const best = alphaBeta(grid, [0, maxDepth], -Infinity, Infinity, false)
         setMove(best[0], ePlayerSymbol.O, 'cell-o')
         if (wins(grid, ePlayerSymbol.O)) {
             setVictory('victory-o')
@@ -72,11 +75,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const onMove = (event: Event, position: number) => {
-        turnPlayer(position)
+        if (!end) {
+            turnPlayer(position)
 
-        if (versus === eGameVersus.COMPUTED)
-        {
-            turnIA()
+            if (!end && versus === eGameVersus.COMPUTED) {
+                turnIA()
+            }
         }
     }
 
@@ -85,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         grid = [0, 1, 2, 3, 4, 5, 6, 7, 8]
         step = 0
+        end = false
 
         versus      = formOptions.versus.value
         maxDepth    = parseInt(formOptions.maxDepth.value)
@@ -121,9 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Add event listener form submit
         formOptions.addEventListener('submit', onSubmit)
-
-        // @TODO: maxDepth marche pas
-        formOptions.maxDepth.style.display = 'none'
+        formOptions.addEventListener('change', onSubmit)
+        onSubmit({ preventDefault: () => null } as any)
     }
 
     init()

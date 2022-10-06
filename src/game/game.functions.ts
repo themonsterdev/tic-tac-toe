@@ -49,7 +49,7 @@ export function emptyCells(grid: tGrid) : tGridPositionEmpty {
  * AI function that choice the best move
  *
  * @param grid The state of the current board
- * @param depth Node depth index in the tree
+ * @param depths Node depth index in the tree
  * @param alpha The alpha couple
  * @param beta The beta couple
  * @param isMaximizingPlayer An maximizing or a minimizing
@@ -57,13 +57,16 @@ export function emptyCells(grid: tGrid) : tGridPositionEmpty {
  */
 export function alphaBeta(
     grid: tGrid,
-    depth: number,
+    depths: Array<number>,
     alpha: number,
     beta: number,
     isMaximizingPlayer: boolean
 ) {
     let best: Array<number> = [-1, isMaximizingPlayer ? -Infinity : Infinity]
-    const available = emptyCells(grid)
+    const available : tGridPositionEmpty = emptyCells(grid)
+
+    const depth: number     = depths[0]
+    const maxDepth: number  = depths[1]
 
     // evaluate
     if (wins(grid, ePlayerSymbol.X))
@@ -74,7 +77,7 @@ export function alphaBeta(
     {
         return [-1, -(1 + depth)]
     }
-    else if (depth === 9 || available.length === 0)
+    else if (depth === maxDepth || available.length === 0)
     {
         return [-1, 0]
     }
@@ -91,10 +94,10 @@ export function alphaBeta(
         newGrid[position] = playerSymbol
 
         // Assign score
-        score = alphaBeta(newGrid, depth + 1, alpha, beta, !isMaximizingPlayer)
+        score = alphaBeta(newGrid, [depth + 1, maxDepth], alpha, beta, !isMaximizingPlayer)
 
         // Assign position
-        score[0] = Number(position)
+        score[0] = position
 
         // Previous state
         newGrid[position] = position

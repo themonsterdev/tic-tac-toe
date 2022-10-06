@@ -24,14 +24,14 @@ describe('Tic tac toe', () => {
             ]
 
             // Trouver une solution optimale pour une valeur max
-            let score = alphaBeta(grid, 6, -Infinity, Infinity, true)
+            let score = alphaBeta(grid, [0, -1], -Infinity, Infinity, true)
             expect(score[0]).toBe(4) // position
-            expect(score[1]).toBe(8) // score
+            expect(score[1]).toBe(2) // score
 
             // Trouver une solution optimale pour une valeur min
-            score = alphaBeta(grid, 6, -Infinity, Infinity, false)
+            score = alphaBeta(grid, [0, -1], -Infinity, Infinity, false)
             expect(score[0]).toBe(4) // position
-            expect(score[1]).toBe(-10) // score
+            expect(score[1]).toBe(-4) // score
         })
     })
 })

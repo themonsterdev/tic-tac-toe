@@ -4,6 +4,11 @@ body {
 
 form {
 
+    > label {
+        margin-bottom: .5rem;
+        display: block;
+    }
+
     > select {
         padding: 1rem;
         width: 100%;

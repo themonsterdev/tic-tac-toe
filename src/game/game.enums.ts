@@ -1,12 +1,12 @@
 export enum eGameState {
-    PLAYING = 'Playing',
-    VICTORY = 'Victory',
-    DRAW    = 'Draw',
+    PLAYING = 'En cours',
+    VICTORY = 'Victoire',
+    DRAW    = 'Partie nulle',
 }
 
 export enum eGameVersus {
-    COMPUTED    = 'Computed',
-    HUMAN       = 'Human',
+    COMPUTED    = 'Ordinateur',
+    HUMAN       = 'Humain',
 }
 
 export enum ePlayerSymbol {
