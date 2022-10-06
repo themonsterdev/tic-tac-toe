@@ -7,33 +7,7 @@
     <title>Tic-tac-toe + IA + TS</title>
   </head>
   <body>
-    <div class="center-screen">
-      <div>
-        <div class="status" id="status">
-          Status : <span>Initialisation...</span>
-        </div>
-      </div>
-      <form id="options">
-        <label for="versus">Contre</label>
-        <select name="versus" id="versus"></select>
-
-        <label for="maxDepth">Profondeur Max</label>
-        <select name="maxDepth" id="maxDepth"></select>
-
-        <button type="submit">Lancer la partie</button>
-      </form>
-      <div class="board" id="board">
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-      </div>
-    </div>
-    <script type="module" src="/src/main.ts"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
