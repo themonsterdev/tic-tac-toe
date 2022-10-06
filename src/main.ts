@@ -1,14 +1,12 @@
-import type {tGrid} from './game'
-import {eGameState, eGameVersus, ePlayerSymbol, isVictory, minimax} from './game'
+import type { tGrid } from './game'
+import { eGameState, eGameVersus, ePlayerSymbol, wins, alphaBeta } from './game'
 import './style.scss'
 
 document.addEventListener('DOMContentLoaded', function () {
     // Game ui elements
     const status = document.getElementById('status') as HTMLElement
     const statusText = status.querySelector('span') as HTMLSpanElement
-
     const formOptions = document.getElementById('options') as HTMLFormElement
-
     const board = document.getElementById('board') as HTMLElement
     const cells = board.querySelectorAll('.cell')
 
@@ -41,17 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         statusText.innerHTML = eGameState.DRAW
     }
 
-    const turnPlayer = (position: number) => {
-        const xIsNext = (step % 2) === 0
-        const playerSymbol = xIsNext ? ePlayerSymbol.X : ePlayerSymbol.O
-        setMove(position,
-            playerSymbol,
-            xIsNext ? 'cell-x' : 'cell-o'
-        )
-        if (isVictory(grid, playerSymbol)) {
-            setVictory(xIsNext ? 'victory-x' : 'victory-o')
-            return
-        }
+    const setNextTurnOrDraw = () => {
         step++
         if (step === 9) {
             setDraw()
@@ -59,18 +47,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    const turnPlayer = (position: number) => {
+        const xIsNext = (step % 2) === 0
+        const playerSymbol = xIsNext ? ePlayerSymbol.X : ePlayerSymbol.O
+        setMove(position,
+            playerSymbol,
+            xIsNext ? 'cell-x' : 'cell-o'
+        )
+        if (wins(grid, playerSymbol)) {
+            setVictory(xIsNext ? 'victory-x' : 'victory-o')
+            return
+        }
+        setNextTurnOrDraw()
+    }
+
     const turnIA = () => {
-        const best = minimax(grid, [0, maxDepth], false)
+        const best = alphaBeta(grid, step, -Infinity, Infinity, false)
         setMove(best[0], ePlayerSymbol.O, 'cell-o')
-        if (isVictory(grid, ePlayerSymbol.O)) {
+        if (wins(grid, ePlayerSymbol.O)) {
             setVictory('victory-o')
             return
         }
-        step++
-        if (step === 9) {
-            setDraw()
-            return
-        }
+        setNextTurnOrDraw()
     }
 
     const onMove = (event: Event, position: number) => {

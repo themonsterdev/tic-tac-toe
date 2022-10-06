@@ -1,20 +1,27 @@
-import type { tGrid, tGridPosition } from './game.types'
+import type { tWins, tGrid, tGridPositionEmpty } from './game.types'
 import { ePlayerSymbol } from './game.enums'
 
-export const WINS = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
+export const WINS: tWins = [
+    [0, 1, 2], // Horizontal
+    [3, 4, 5], // Horizontal
+    [6, 7, 8], // Horizontal
 
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
+    [0, 3, 6], // Vertical
+    [1, 4, 7], // Vertical
+    [2, 5, 8], // Vertical
 
-    [0, 4, 8],
-    [2, 4, 6]
+    [0, 4, 8], // Diagonal
+    [2, 4, 6], // Diagonal
 ]
 
-export function isVictory(grid: tGrid, playerSymbol: ePlayerSymbol) : boolean {
+/**
+ * This function tests if a specific player wins.
+ *
+ * @param grid The state of the current board
+ * @param playerSymbol A X or a O
+ * @return True if the player wins
+ */
+export function wins(grid: tGrid, playerSymbol: ePlayerSymbol) : boolean {
     for (let i = 0; i < WINS.length; i++)
     {
         const [a, b, c] = WINS[i]
@@ -28,60 +35,98 @@ export function isVictory(grid: tGrid, playerSymbol: ePlayerSymbol) : boolean {
     return false
 }
 
-export function emptyCells(grid: tGrid) : Array<tGridPosition> {
-    return grid.filter(cell => typeof cell === 'number') as Array<tGridPosition>
+/**
+ * Each empty cell will be added into cells' list
+ *
+ * @param grid The state of the current board
+ * @return A list of empty cells
+ */
+export function emptyCells(grid: tGrid) : tGridPositionEmpty {
+    return grid.filter(cell => typeof cell === 'number') as tGridPositionEmpty
 }
 
-export function minimax(grid: tGrid, depth: Array<number>, isMaximizingPlayer: boolean)
-{
-    const _depth = depth[0]
-    const maxDepth = depth[1]
-
+/**
+ * AI function that choice the best move
+ *
+ * @param grid The state of the current board
+ * @param depth Node depth index in the tree
+ * @param alpha The alpha couple
+ * @param beta The beta couple
+ * @param isMaximizingPlayer An maximizing or a minimizing
+ * @return A list with [the best position, best score]
+ */
+export function alphaBeta(
+    grid: tGrid,
+    depth: number,
+    alpha: number,
+    beta: number,
+    isMaximizingPlayer: boolean
+) {
     let best: Array<number> = [-1, isMaximizingPlayer ? -Infinity : Infinity]
     const available = emptyCells(grid)
 
     // evaluate
-    if (isVictory(grid, ePlayerSymbol.X))
+    if (wins(grid, ePlayerSymbol.X))
     {
-        return [-1, 1 + _depth]
+        return [-1, 1 + depth]
     }
-    else if (isVictory(grid, ePlayerSymbol.O))
+    else if (wins(grid, ePlayerSymbol.O))
     {
-        return [-1, -(1 + _depth)]
+        return [-1, -(1 + depth)]
     }
-    else if (_depth === maxDepth || available.length === 0)
+    else if (depth === 9 || available.length === 0)
     {
         return [-1, 0]
     }
 
     const playerSymbol = isMaximizingPlayer ? ePlayerSymbol.X : ePlayerSymbol.O
+    let score: Array<number>
 
     for (const position of available)
     {
-        // move
+        // Copy grid
         const newGrid = [ ...grid ]
+
+        // set move
         newGrid[position] = playerSymbol
 
-        // get score
-        const score = minimax(newGrid, [_depth + 1, maxDepth], !isMaximizingPlayer)
-        score[0] = position
+        // Assign score
+        score = alphaBeta(newGrid, depth + 1, alpha, beta, !isMaximizingPlayer)
 
-        // reset
+        // Assign position
+        score[0] = Number(position)
+
+        // Previous state
         newGrid[position] = position
 
         // store best score and move
-        if (isMaximizingPlayer && score[1] > best[1])
+        if (isMaximizingPlayer)
         {
-            best = score  // max value
+            if (score[1] > best[1])
+            {
+                best = score  // max value
+            }
+
+            alpha = Math.max(alpha, best[1])
+            if (best[1] >= beta)
+            {
+                break // beta cutoff
+            }
         }
-        else if (!isMaximizingPlayer && score[1] < best[1])
+        else // (!isMaximizingPlayer)
         {
-            best = score  // min value
+            if (score[1] < best[1])
+            {
+                best = score  // min value
+            }
+
+            beta = Math.min(beta, best[1])
+            if (best[1] <= alpha)
+            {
+                break // alpha cutoff
+            }
         }
     }
-
-    // if (best[0] === -1) throw new Error('position -1')
-    // if (best[1] === -1) throw new Error('best -1')
 
     return best
 }
