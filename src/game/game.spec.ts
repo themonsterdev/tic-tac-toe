@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
-import type { tGrid } from './game.types'
-import { ePlayerSymbol } from './game.enums'
 import { WINS, wins, alphaBeta } from './game.functions'
+import { ePlayerSymbol } from './game.enums'
+import type { tGrid } from './game.types'
 
 describe('Tic tac toe', () => {
     const initialGrid: tGrid = [0, 1, 2, 3, 4, 5, 6, 7, 8]

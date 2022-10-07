@@ -1,5 +1,3 @@
-import { MouseEvent } from 'react'
-
 import { eGameVersus, ePlayerSymbol } from './game.enums'
 
 export type tGridPosition = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
@@ -9,7 +7,7 @@ export type tGridPositionEmpty = Array<tGridPosition>
 export type tWin = Array<tGridPosition>
 export type tWins = Array<tWin>
 
-export type tGameContext = {
+export type tGameStore = {
     state: {
         board: tGrid
         step: number
@@ -20,8 +18,10 @@ export type tGameContext = {
         maxDepth: number
         versus: eGameVersus
     }
-    setVersus?: (versus: eGameVersus) => void
-    setMaxDepth?: (maxDepth: number) => void
-    resetGame?: () => void
-    onMove?: (event: MouseEvent<HTMLElement>) => void
+    get xIsNext() : boolean
+    checkIsDraw () : void
+    turnPlayer (position: number) : void
+    turnIA () : void
+    resetGame () : void
+    onChangeForm (event: Event) : void
 }

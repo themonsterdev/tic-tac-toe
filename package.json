@@ -1,26 +1,25 @@
 {
   "name": "tic-tac-toe",
   "private": true,
-  "version": "react",
+  "version": "vue",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
-    "@vitejs/plugin-react": "^2.1.0",
+    "@vitejs/plugin-vue": "^3.1.2",
     "typescript": "^4.6.4",
     "vite": "^3.1.0",
-    "vitest": "^0.23.4"
+    "vitest": "^0.23.4",
+    "vue-tsc": "^1.0.0"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sass": "^1.55.0"
+    "sass": "^1.55.0",
+    "vue": "^3.2.40",
+    "vuex": "^4.0.2"
   }
 }
