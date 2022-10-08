@@ -46,6 +46,22 @@ form {
     border-radius: .5rem;
     padding: 1rem;
     color: white;
+
+    &.playing {
+        background-color: lightseagreen;
+    }
+
+    &.victory-x {
+        background-color: #5bd3ff;
+    }
+
+    &.victory-o {
+        background-color: #FF7F5B;
+    }
+
+    &.draw {
+        background-color: lightslategray;
+    }
 }
 
 .board {
@@ -84,21 +100,4 @@ form {
             cursor: pointer;
         }
     }
-}
-
-
-.playing {
-    background-color: lightseagreen;
-}
-
-.victory-x {
-    background-color: #5bd3ff;
-}
-
-.victory-o {
-    background-color: #FF7F5B;
-}
-
-.draw {
-    background-color: lightslategray;
 }
