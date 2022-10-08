@@ -14,8 +14,11 @@ export default reactive<tGameStore>({
         maxDepth: 9,
         versus: eGameVersus.COMPUTED
     },
-    get xIsNext() {
+    get xIsNext() : boolean {
         return (this.state.step % 2) === 0
+    },
+    get isTerminal() : boolean {
+        return this.state.isVictory && !this.state.isDraw
     },
     checkIsDraw () {
         const available = emptyCells(this.state.board)

@@ -1,5 +1,6 @@
 import type { tWins, tGrid, tGridPositionEmpty } from './game.types'
 import { ePlayerSymbol } from './game.enums'
+import store from "./store";
 
 export const WINS: tWins = [
     [0, 1, 2], // Horizontal
@@ -26,7 +27,7 @@ export function wins(grid: tGrid, playerSymbol: ePlayerSymbol) : boolean {
     {
         const [a, b, c] = WINS[i]
 
-        if (grid[a] && grid[a] === grid[b] && grid[b] === grid[c])
+        if (typeof grid[a] !== 'number' && grid[a] === grid[b] && grid[b] === grid[c])
         {
             return grid[a] === playerSymbol
         }
@@ -43,6 +44,10 @@ export function wins(grid: tGrid, playerSymbol: ePlayerSymbol) : boolean {
  */
 export function emptyCells(grid: tGrid) : tGridPositionEmpty {
     return grid.filter(cell => typeof cell === 'number') as tGridPositionEmpty
+}
+
+export function isValidMove(position: number) : boolean {
+    return typeof store.state.board[position] === 'number'
 }
 
 /**

@@ -19,6 +19,7 @@ export type tGameStore = {
         versus: eGameVersus
     }
     get xIsNext() : boolean
+    get isTerminal() : boolean
     checkIsDraw () : void
     turnPlayer (position: number) : void
     turnIA () : void
